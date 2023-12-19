@@ -1,0 +1,84 @@
+.container {
+  margin-top: 1.1rem;
+}
+
+.containerTitle {
+  padding: .5%;
+  background-color: #f72424;
+  display: block;
+  margin: 5px;
+  border-radius: 5px;
+
+  p {
+    text-align: center;
+    color: #ffffff;
+    font-weight: lighter;
+    font-family: 'Collingar';
+    text-shadow: 1.5px 1px #000;
+    font-size: 1.5rem;
+    padding: .5%;
+  }
+}
+
+.cardsContainer {
+  margin: 1%;
+  font-family: 'Ubuntu';
+  font-weight: bolder;
+  display: flex;
+  flex-wrap: wrap;
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
+  justify-items: center;
+  align-items: center;
+  justify-content: space-evenly;
+
+}
+
+.cardBody {
+  border: 1px solid #000;
+  border-radius: 5px;
+  text-align: text-center;
+  width: 200px;
+  height: 215px;
+  min-width: fit-content;
+  max-height: fit-content;
+  margin: 5px;
+
+  &:hover {
+    box-shadow: 3px 3px #75AADb;
+  }
+
+  .cardTitle {
+    font-size: 1.1rem;
+  }
+
+  .cardPrecio {
+    font-size: 1.1rem;
+  }
+}
+
+.addCart {
+  font-family: 'Collingar';
+  color: #fff;
+  background-color: #141951;
+  border-radius: 2px;
+  margin-bottom: auto;
+  width: 100%;
+
+  &:focus {
+    background-color: #f72424;
+  }
+}
+
+.cardImg {
+  overflow: hidden;
+
+  img {
+    object-fit: cover;
+    overflow: hidden;
+    width: 200px;
+    height: 100px;
+  }
+
+}
+

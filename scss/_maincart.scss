@@ -1,0 +1,136 @@
+.carrito {
+  border: solid 1px black;
+  border-radius: 10px;
+  margin: 5px;
+  text-align: center;
+}
+
+.carritoLista {
+  text-align: center;
+}
+
+
+.carritoVacio {
+  text-align: center;
+  display: inline-block;
+  object-fit: contain;
+
+  p {
+    display: inline-block;
+    font-family: 'Collingar';
+    background-color: #141951;
+    color: #fff;
+    padding: 1%;
+    border-radius: 5px;
+  }
+}
+
+.productoAgregadoCarrito {
+  font-family: 'Collingar';
+  background-color: #141951;
+}
+
+.itemCarrito {
+  border-radius: 5px;
+  list-style: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 2px;
+  padding: .5%;
+
+  .textoItemCarrito {
+    margin: 5px;
+    font-weight: bold;
+    font-size: 1.1rem
+  }
+}
+
+.divTotalCarrito {
+  border: 1px solid #000;
+  display: inline-block;
+  font-size: 18px;
+  text-align: center;
+  font-family: 'Ubuntu';
+  font-weight: bold;
+  padding: 1%;
+}
+
+.btnDelCarrito {
+  font-size: 18px;
+  font-family: 'Collingar';
+  color: #fff;
+  background-color: #141951;
+  padding: 1%;
+  margin: 2px;
+  border-radius: 5px;
+
+  &:focus {
+    background-color: #8b171a;
+  }
+}
+
+.carritoLista {
+  text-align: center;
+}
+
+.productoAgregadoCarrito {
+  font-family: 'Collingar';
+  background-color: #141951;
+}
+
+.carritoVacio {
+  text-align: center;
+  display: inline;
+  object-fit: contain;
+
+  p {
+    display: inline-block;
+    font-family: 'Collingar';
+    background-color: #141951;
+    color: #fff;
+    padding: 1%;
+    border-radius: 5px;
+  }
+}
+
+#divTotalCarrito {
+  border-radius: 5px;
+}
+
+#textoTotalCarrito {
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 1.1rem;
+
+}
+
+#buttonsCart {
+  object-position: 50%;
+  text-align: center;
+}
+
+  
+.itemCarrito {
+  list-style: none;
+  text-decoration: none;
+  font-size: 18px;
+  font-family: 'Ubuntu';
+  border: 1px solid #000;
+  display: inline-block;
+  margin: 2px;
+}
+
+.btnDelCarrito {
+  font-size: 18px;
+  font-family: 'Collingar';
+  color: #fff;
+  background-color: #141951;
+  padding: 1%;
+  margin: 2px;
+  border-radius: 5px;
+
+  &:focus {
+    background-color: #8b171a;
+  }
+}
