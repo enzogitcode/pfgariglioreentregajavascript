@@ -1,24 +1,15 @@
-//let carrito = JSON.parse(localStorage.getItem("miCarrito")) || []
-const carritoLista = document.querySelector("#carritoLista");
-const divCarritoVacio = document.querySelector(".carritoVacio")
 const contenedorProductos = document.querySelector("#cardsContainer")
+const divCarritoVacio = document.querySelector(".carritoVacio")
+const carritoLista = document.querySelector("#carritoLista");
 const btnLimpiar = document.querySelector("#btnLimpiarCarrito")
 const btnComprar = document.querySelector("#btnComprar")
 const EliminarDelCarrito = document.querySelectorAll(".removeItem")
 const cantidadProductosCarrito = document.querySelector("#cantidadProductosCarrito")
-/* 
- fetch('json/productosScala.json')
-  .then(response => response.json())
-  .then ((data)=> carrito.push (...data))
-  .then(data => {
-    productos = data;
-    procesarProductos(productos);
-  })
-  .catch (() => cardsContainer.innerHTML= crearCardError ()); */
- 
+
 function crearCardError () {
   return cardsContainer.innerHTML= `<div id="cardError" class="cardError">No pudimos cargar los productos</div>`
 }
+
 
 function procesarProductos(productos) {
   productos.forEach(producto => {
@@ -26,6 +17,23 @@ function procesarProductos(productos) {
     contenedorProductos.innerHTML += cardHTML;
   });
 }
+
+
+
+/* 
+let carrito = JSON.parse(localStorage.getItem("miCarrito")) || []
+
+
+ fetch('json/productosScala.json')
+  .then(response => response.json())
+  .then ((data)=> carrito.push (...data))
+  .then(data => {
+    productos = data;
+    procesarProductos(productos);
+  })
+  .catch (() => cardsContainer.innerHTML= crearCardError ()); 
+ 
+
 
 function crearCardHTML(producto) {
   return `<div class="cardBody">
@@ -63,7 +71,6 @@ function agregarAlCarrito(id) {
 
   if (productoSeleccionado) {
     carrito.push(productoSeleccionado);
-
     const nuevoItemCarrito = document.createElement("div");
     nuevoItemCarrito.classList.add("itemCarrito");
     nuevoItemCarrito.innerHTML = `
@@ -162,7 +169,7 @@ function vaciarCarrito() {
     obtenerTotal();
   }
 }
-
+ */
 /* function confirmarCompra() {
   if (carrito.length > 0 & carrito !== []) {
     btnComprar.addEventListener("click", () => {
