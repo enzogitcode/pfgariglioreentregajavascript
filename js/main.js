@@ -6,7 +6,7 @@ const btnLimpiar = document.querySelector("#btnLimpiarCarrito")
 const btnComprar = document.querySelector("#btnComprar")
 const EliminarDelCarrito = document.querySelectorAll(".removeItem")
 const cantidadProductosCarrito = document.querySelector("#cantidadProductosCarrito")
-
+/* 
  fetch('json/productosScala.json')
   .then(response => response.json())
   .then ((data)=> carrito.push (...data))
@@ -14,7 +14,7 @@ const cantidadProductosCarrito = document.querySelector("#cantidadProductosCarri
     productos = data;
     procesarProductos(productos);
   })
-  .catch (() => cardsContainer.innerHTML= crearCardError ());
+  .catch (() => cardsContainer.innerHTML= crearCardError ()); */
  
 function crearCardError () {
   return cardsContainer.innerHTML= `<div id="cardError" class="cardError">No pudimos cargar los productos</div>`
@@ -58,7 +58,7 @@ function agregarAlCarrito(id) {
       x: "2.5rem",
       y: "6.5rem"
     },
-    onClick: function () { } // Callback after click
+    onClick: function () { }
   }).showToast();
 
   if (productoSeleccionado) {
@@ -163,7 +163,7 @@ function vaciarCarrito() {
   }
 }
 
-function confirmarCompra() {
+/* function confirmarCompra() {
   if (carrito.length > 0 & carrito !== []) {
     btnComprar.addEventListener("click", () => {
       obtenerTotal();
@@ -191,3 +191,4 @@ function confirmarCompra() {
 
   }
 }
+ */
