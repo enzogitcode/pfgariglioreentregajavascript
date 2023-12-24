@@ -3,7 +3,7 @@ const carritoLista = document.querySelector("#carritoLista");
 const divCarritoVacio = document.querySelector(".carritoVacio")
 const contenedorProductos = document.querySelector("#cardsContainer")
 const btnLimpiar = document.querySelector("#btnLimpiarCarrito")
-//btnLimpiar.addEventListener("click", vaciarCarrito);
+btnLimpiar.addEventListener("click", vaciarCarrito);
 const EliminarDelCarrito= document.querySelectorAll(".removeItem")
 const cantidadProductosCarrito= document.querySelector("#cantidadProductosCarrito")
 
@@ -27,7 +27,7 @@ function procesarProductos(productos) {
 
 function crearCardHTML(producto) {
   return `<div class="cardBody">
-    <div class="cardImg">${producto.imagen}</div>
+    <div class="cardImg"><img src="${producto.imagen}" alt="${producto.titulo}"></div>
     <div class="cardTitle">${producto.nombre}</div>
     <div class="cardPrecio">Precio: $ ${producto.precio}</div>
     <button class="addCart" onclick="agregarAlCarrito(${producto.id})">Agregar al carrito</button>
