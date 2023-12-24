@@ -13,8 +13,11 @@ fetch('json/productosscala.json')
     productos = data;
     procesarProductos(productos);
   })
-  .catch(error => console.error('Error al cargar el archivo JSON:', error));
+  .catch(error => (crearCardError, error));
 
+function crearCardError() {
+    return cardsContainer.innerHTML = `<div id="cardError" class="cardError">No pudimos cargar los productos</div>`
+  }
 function procesarProductos(productos) {
   productos.forEach(producto => {
     const cardHTML = crearCardHTML(producto);
@@ -104,7 +107,7 @@ function crearTotalCarrito() {
       }
 
       const btnLimpiarCarrito = document.querySelector("#btnLimpiarCarrito");
-//btnLimpiarCarrito.addEventListener("click", vaciarCarrito);
+btnLimpiarCarrito.addEventListener("click", vaciarCarrito);
 
 function vaciarCarrito() {
     carrito = []; 
@@ -115,25 +118,18 @@ function vaciarCarrito() {
     obtenerTotal(); 
     localStorage.removeItem("miCarrito");
 }
-
-
-// function carritoVacio() {
-//     return divCarritoVacio
-// }
-
-
-
-/* const limpiarCarrito = document.querySelector("#btnLimpiarCarrito")
+ const limpiarCarrito = document.querySelector("#btnLimpiarCarrito")
 limpiarCarrito.addEventListener("click", vaciarCarrito)
 function vaciarCarrito() {
     carrito.lenght = 0
 }
+//arreglar función vaciar carrito
 function vaciarCarrito() {
 
     Swal.fire({
         title: '¿Estás seguro?',
         icon: 'question',
-        html: `Se van a borrar ${productosEnCarrito.reduce((acc, producto) => acc + producto.cantidad, 0)} productos.`,
+        // Arreglar html: `Se van a borrar ${carritoLista.reduce((acc, producto) => acc + producto.cantidad, 0)} productos.`,
         showCancelButton: true,
         focusConfirm: false,
         confirmButtonText: 'Sí',
@@ -142,26 +138,17 @@ function vaciarCarrito() {
         if (result.isConfirmed) {
             productosEnCarrito.length = 0;
             localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
-            cargarProductosCarrito();
+            //cargarProductosCarrito();
         }
     })
 }
- */
+
 //localStorage.setItem("productos", JSON.stringify([productosArray]))
 
 /* 
-let carrito = JSON.parse(localStorage.getItem("miCarrito")) || []
-const contenedorProductos = document.querySelector("#cardsContainer")
-const divCarritoVacio = document.querySelector(".carritoVacio")
-const carritoLista = document.querySelector("#carritoLista");
-const btnLimpiar = document.querySelector("#btnLimpiarCarrito")
-const btnComprar = document.querySelector("#btnComprar")
-const EliminarDelCarrito = document.querySelectorAll(".removeItem")
-const cantidadProductosCarrito = document.querySelector("#cantidadProductosCarrito")
 
-function crearCardError() {
-  return cardsContainer.innerHTML = `<div id="cardError" class="cardError">No pudimos cargar los productos</div>`
-}
+
+
 function crearCardHTML(producto) {
   return `<div class="cardBody">
     <div class="cardImg"><img class=".img-fluid" src="${producto.imagen}" alt="${producto.titulo}">
