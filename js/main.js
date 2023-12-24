@@ -45,7 +45,7 @@ function agregarAlCarrito(id) {
     nuevoItemCarrito.classList.add("itemCarrito");
     nuevoItemCarrito.innerHTML = `
     <div class="textoItemCarrito">
-      ${productoSeleccionado.nombre} ${productoSeleccionado.precio} ${productoSeleccionado.imagen}
+      ${productoSeleccionado.nombre} $${productoSeleccionado.precio}
     </div>
     <button class="btnDelCarrito removeItem" onclick="eliminarDelCarrito(${productoSeleccionado.id})">Eliminar del carrito</button>
   `;
