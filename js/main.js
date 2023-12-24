@@ -1,4 +1,160 @@
 let carrito = JSON.parse(localStorage.getItem("miCarrito")) || []
+const carritoLista = document.querySelector("#carritoLista");
+const divCarritoVacio = document.querySelector(".carritoVacio")
+const contenedorProductos = document.querySelector("#cardsContainer")
+const btnLimpiar = document.querySelector("#btnLimpiarCarrito")
+//btnLimpiar.addEventListener("click", vaciarCarrito);
+const EliminarDelCarrito= document.querySelectorAll(".removeItem")
+const cantidadProductosCarrito= document.querySelector("#cantidadProductosCarrito")
+
+fetch('json/productosScala.json')
+  .then(response => response.json())
+  .then(data => {
+    // Almacena los productos obtenidos
+    productos = data;
+    procesarProductos(productos);
+  })
+  .catch(error => console.error('Error al cargar el archivo JSON:', error));
+
+function procesarProductos(productos) {
+  productos.forEach(producto => {
+    const cardHTML = crearCardHTML(producto);
+    contenedorProductos.innerHTML += cardHTML;
+  });
+}
+
+function crearCardHTML(producto) {
+  return `<div class="cardBody">
+    <div class="cardImg">${producto.imagen}</div>
+    <div class="cardTitle">${producto.nombre}</div>
+    <div class="cardPrecio">Precio: $ ${producto.precio}</div>
+    <button class="addCart" onclick="agregarAlCarrito(${producto.id})">Agregar al carrito</button>
+    </div>`;
+}
+
+function agregarAlCarrito(id) {
+  divCarritoVacio.remove();
+  const productoSeleccionado = productos.find(producto => producto.id === id);
+
+  if (productoSeleccionado) {
+    carrito.push(productoSeleccionado);
+
+    const nuevoItemCarrito = document.createElement("div");
+    nuevoItemCarrito.classList.add("itemCarrito");
+    nuevoItemCarrito.innerHTML = `
+    <div class="textoItemCarrito">
+      ${productoSeleccionado.nombre} ${productoSeleccionado.precio} ${productoSeleccionado.imagen}
+    </div>
+    <button class="btnDelCarrito removeItem" onclick="eliminarDelCarrito(${productoSeleccionado.id})">Eliminar del carrito</button>
+  `;
+
+    carritoLista.appendChild(nuevoItemCarrito);
+    obtenerTotal();
+  } else {
+    console.error('Producto no encontrado');
+  }
+}
+
+
+const divTotalCarrito = document.querySelector("#totalCarrito");
+
+
+
+function crearTotalCarrito() {
+    const spanTotalCarrito = document.createElement("span");
+    spanTotalCarrito.textContent = `$ ${calcularTotal()}`;
+  
+    divTotalCarrito.innerHTML = ""; 
+    const textoTotalCarrito = document.createElement("div");
+    textoTotalCarrito.id = "textoTotalCarrito";
+    textoTotalCarrito.innerHTML = `<p>Productos agregados al carrito: <span id="cantidadProductosCarrito">${carrito.length}</span></p>
+                                    <p>El total de su compra es de </p>`;
+    textoTotalCarrito.appendChild(spanTotalCarrito);
+    divTotalCarrito.appendChild(textoTotalCarrito);
+  }
+  
+  function calcularTotal() {
+    return carrito.reduce((acc, producto) => acc + parseFloat(producto.precio), 0).toFixed(2);
+  }
+  
+  function obtenerTotal() {
+    const cantidadProductosCarrito = document.querySelector("#cantidadProductosCarrito");
+    const divCarritoVacio = document.querySelector("#carritoVacio");
+    const divTotalCarrito = document.querySelector("#divTotalCarrito");
+  
+    if (carrito.length > 0) {
+        totalCarrito.textContent = carrito.length;
+      divCarritoVacio.style.display = "none"; 
+      divTotalCarrito.style.display = "block"; 
+      crearTotalCarrito();
+    } else {
+        //totalCarrito.textContent = 0;
+      divCarritoVacio.style.display = "block"; 
+      divTotalCarrito.style.display = "none"; 
+    }
+  }
+
+// 
+    function eliminarDelCarrito(id) {
+        const productoIndex = carrito.findIndex(producto => producto.id === id);
+        if (productoIndex !== -1) {
+          carrito.splice(productoIndex, 1);
+      
+          const elementosCarrito = document.querySelectorAll('.itemCarrito');
+          elementosCarrito[productoIndex].remove();
+      
+          obtenerTotal(); 
+        }
+      }
+
+      const btnLimpiarCarrito = document.querySelector("#btnLimpiarCarrito");
+btnLimpiarCarrito.addEventListener("click", vaciarCarrito);
+
+function vaciarCarrito() {
+    carrito = []; 
+
+    const elementosCarrito = document.querySelectorAll('.itemCarrito');
+    elementosCarrito.forEach(elemento => elemento.remove());
+
+    obtenerTotal(); 
+    localStorage.removeItem("miCarrito");
+}
+
+
+// function carritoVacio() {
+//     return divCarritoVacio
+// }
+
+
+
+/* const limpiarCarrito = document.querySelector("#btnLimpiarCarrito")
+limpiarCarrito.addEventListener("click", vaciarCarrito)
+function vaciarCarrito() {
+    carrito.lenght = 0
+}
+function vaciarCarrito() {
+
+    Swal.fire({
+        title: '¿Estás seguro?',
+        icon: 'question',
+        html: `Se van a borrar ${productosEnCarrito.reduce((acc, producto) => acc + producto.cantidad, 0)} productos.`,
+        showCancelButton: true,
+        focusConfirm: false,
+        confirmButtonText: 'Sí',
+        cancelButtonText: 'No'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            productosEnCarrito.length = 0;
+            localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
+            cargarProductosCarrito();
+        }
+    })
+}
+ */
+//localStorage.setItem("productos", JSON.stringify([productosArray]))
+
+/* 
+let carrito = JSON.parse(localStorage.getItem("miCarrito")) || []
 const contenedorProductos = document.querySelector("#cardsContainer")
 const divCarritoVacio = document.querySelector(".carritoVacio")
 const carritoLista = document.querySelector("#carritoLista");
@@ -77,7 +233,7 @@ then((response) => response.json())
   .then(data => {
     productos = data;
     agregarAlCarrito(carrito)})
-    /* 
+     
      fetch('../json/productosscala.json')
       .then(response => response.json())
       .then ((response)=> carrito.push (...data))
@@ -86,7 +242,7 @@ then((response) => response.json())
         procesarProductos(productos);
       })
       .catch (() => cardsContainer.innerHTML= crearCardError ()); 
-     */
+     
 
 
     const divTotalCarrito = document.querySelector("#totalCarrito");
@@ -153,7 +309,7 @@ then((response) => response.json())
       }
     }
 
-    /* const btnLimpiarCarrito = document.querySelector("#btnLimpiarCarrito");
+     const btnLimpiarCarrito = document.querySelector("#btnLimpiarCarrito");
     btnLimpiarCarrito.addEventListener("click", vaciarCarrito);
     
     function vaciarCarrito(carrito) {
@@ -165,7 +321,7 @@ then((response) => response.json())
         obtenerTotal();
       }
     }
-     */
+     
     function confirmarCompra() {
       if (carrito.length > 0) {
         btnComprar.addEventListener("click", () => {
@@ -193,4 +349,4 @@ then((response) => response.json())
         })
 
       }
-    }
+    } */
