@@ -9,10 +9,10 @@ let carrito = JSON.parse(localStorage.getItem("miCarrito")) || []
 const cardsContainer = document.querySelector("#cardsContainer")
 const carritoLista = document.querySelector("#carritoLista");
 const divCarritoVacio = document.querySelector(".carritoVacio")
-const btnLimpiar = document.querySelector("#btnLimpiarCarrito")
-btnLimpiar.addEventListener("click", vaciarCarrito);
+//const btnLimpiar = document.querySelector("#btnLimpiarCarrito")
+//btnLimpiar.addEventListener("click", vaciarCarrito);
 const EliminarDelCarrito = document.querySelectorAll(".removeItem")
-const cantidadProductosCarrito = document.querySelector("#cantidadProductosCarrito")
+//const cantidadProductosCarrito = document.querySelector("#cantidadProductosCarrito")
 
 fetch('json/productosscala.json')
   .then(response => response.json())
@@ -40,7 +40,6 @@ function crearCardHTML(producto) {
     <button class="addCart" onclick="agregarAlCarrito(${producto.id})">Agregar al carrito</button>
     </div>`;
 }
-
 
 function agregarAlCarrito(id) {
   divCarritoVacio.remove();
@@ -77,7 +76,8 @@ function agregarAlCarrito(id) {
     <button class="btnDelCarrito removeItem" onclick="eliminarDelCarrito(${productoSeleccionado.id})">Eliminar del carrito</button>
   `;
     carritoLista.appendChild(nuevoItemCarrito);
-    obtenerTotal();
+    calcularTotal();
+    //    obtenerTotal();
   } else {
     Swal.fire({
       title: "Error",
@@ -87,8 +87,43 @@ function agregarAlCarrito(id) {
     });
   }
 }
-
-const divTotalCarrito = document.querySelector("#totalCarrito");
+function calcularTotal() {
+  return carrito.reduce((acc, producto) => acc + parseFloat(producto.precio), 0).toFixed(2);
+}
+function eliminarDelCarrito(id) {
+  const productoIndex = carrito.findIndex(producto => producto.id === id);
+  if (productoIndex !== -1) {
+    carrito.splice(productoIndex, 1);
+    const elementosCarrito = document.querySelectorAll('.itemCarrito');
+    elementosCarrito[productoIndex].remove();
+    //obtenerTotal();
+    mostrarCarritoVacio();
+    Toastify({
+      text: "Producto eliminado",
+      duration: 3000,
+      close: true,
+      gravity: "top",
+      position: "right",
+      stopOnFocus: true,
+      style: {
+        background: "#f72424",
+        color: "fff",
+        fontFamily: 'Ubuntu',
+        fontWeight: 'Bolder',
+      },
+      offset: {
+        x: "2.5rem",
+        y: "6.5rem"
+      },
+      onClick: function () { }
+    }).showToast();
+  }
+}
+function mostrarCarritoVacio() {
+  if (carrito.lenght = 0) {
+    noHayProductos.innerHTML = `<p>No hay productos en el carrito</p>`
+  }
+}
 
 function crearTotalCarrito() {
   const spanTotalCarrito = document.createElement("span");
@@ -102,41 +137,3 @@ function crearTotalCarrito() {
   textoTotalCarrito.appendChild(spanTotalCarrito);
   divTotalCarrito.appendChild(textoTotalCarrito);
 }
-
-function calcularTotal() {
-  return carrito.reduce((acc, producto) => acc + parseFloat(producto.precio), 0).toFixed(2);
-}
-
-function obtenerTotal() {
-  const cantidadProductosCarrito = document.querySelector("#cantidadProductosCarrito");
-  const divCarritoVacio = document.querySelector("#carritoVacio");
-  const divTotalCarrito = document.querySelector("#divTotalCarrito");
-
-  if (carrito.length > 0) {
-    totalCarrito.textContent = carrito.length;
-    divCarritoVacio.style.display = "none";
-    divTotalCarrito.style.display = "block";
-    crearTotalCarrito();
-  } else {
-    totalCarrito.textContent = 0;
-    divCarritoVacio.style.display = "block";
-    divTotalCarrito.style.display = "none";
-  }
-}
-
-// 
-function eliminarDelCarrito(id) {
-  const productoIndex = carrito.findIndex(producto => producto.id === id);
-  if (productoIndex !== -1) {
-    carrito.splice(productoIndex, 1);
-    const elementosCarrito = document.querySelectorAll('.itemCarrito');
-    elementosCarrito[productoIndex].remove();
-    obtenerTotal();
-  }
-}
-const limpiarCarrito = document.querySelector("#btnLimpiarCarrito")
-limpiarCarrito.addEventListener("click", vaciarCarrito)
-function vaciarCarrito() {
-  carrito.lenght = 0
-}
-//arreglar función vaciar carrito
