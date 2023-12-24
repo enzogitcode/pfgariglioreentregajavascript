@@ -7,10 +7,9 @@ const btnLimpiar = document.querySelector("#btnLimpiarCarrito")
 const EliminarDelCarrito= document.querySelectorAll(".removeItem")
 const cantidadProductosCarrito= document.querySelector("#cantidadProductosCarrito")
 
-fetch('json/productosScala.json')
+fetch('json/productosscala.json')
   .then(response => response.json())
   .then(data => {
-    // Almacena los productos obtenidos
     productos = data;
     procesarProductos(productos);
   })
@@ -55,10 +54,7 @@ function agregarAlCarrito(id) {
   }
 }
 
-
 const divTotalCarrito = document.querySelector("#totalCarrito");
-
-
 
 function crearTotalCarrito() {
     const spanTotalCarrito = document.createElement("span");
@@ -88,7 +84,7 @@ function crearTotalCarrito() {
       divTotalCarrito.style.display = "block"; 
       crearTotalCarrito();
     } else {
-        //totalCarrito.textContent = 0;
+        totalCarrito.textContent = 0;
       divCarritoVacio.style.display = "block"; 
       divTotalCarrito.style.display = "none"; 
     }
@@ -108,7 +104,7 @@ function crearTotalCarrito() {
       }
 
       const btnLimpiarCarrito = document.querySelector("#btnLimpiarCarrito");
-btnLimpiarCarrito.addEventListener("click", vaciarCarrito);
+//btnLimpiarCarrito.addEventListener("click", vaciarCarrito);
 
 function vaciarCarrito() {
     carrito = []; 
