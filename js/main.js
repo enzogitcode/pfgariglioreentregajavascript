@@ -19,6 +19,7 @@ function procesarProductos(productos) {
     const cardHTML = crearCardHTML(producto);
     cardsContainer.innerHTML += cardHTML;
   });
+  mostrarTotal();
 }
 function crearCardHTML(producto) {
   return `<div class="cardBody">
@@ -53,6 +54,7 @@ function agregarAlCarrito(id) {
 
   if (productoSeleccionado) {
     carrito.push(productoSeleccionado);
+    divTotalCarrito.textContent= ''
     const nuevoItemCarrito = document.createElement("div");
     nuevoItemCarrito.classList.add("itemCarrito");
     nuevoItemCarrito.innerHTML = `
@@ -78,6 +80,8 @@ function eliminarDelCarrito(id) {
     carrito.splice(productoIndex, 1);
     const elementosCarrito = document.querySelectorAll('.itemCarrito');
     elementosCarrito[productoIndex].remove();
+    mostrarTotal();
+
     Toastify({
       text: "Producto eliminado",
       duration: 3000,
@@ -98,13 +102,11 @@ function eliminarDelCarrito(id) {
       onClick: function () { }
     }).showToast();
   }
-  mostrarTotal();
 }
 function mostrarTotal() {
-  let total = carrito.reduce((acc, producto) => acc + parseFloat(producto.precio), 0).toFixed(2);
-  divTotalCarrito.innerHTML = `<div>Cantidad de productos agregados al carrito</div>
-  <div>El total de su compra es <span>${total}</span></div>`
+    let total = carrito.reduce((acc, producto) => acc + parseFloat(producto.precio), 0).toFixed(2);
+    divTotalCarrito.innerHTML = `<div>Cantidad de productos agregados al carrito <span>${carrito.lenght}</span></div>
+  <div>El total de su compra es de $<span>${total}</span></div>`
+  }
 
-if (carrito.lenght = 0) { 
-  divTotalCarrito.innerHTML = `<El carrito esta vacío` }
-}
+
