@@ -279,7 +279,7 @@ function eliminarDelCarrito(id) {
 }
 
 function calcularTotal() {
-  if ()
+  return 
   carrito.reduce((acc, producto) => acc + parseFloat(producto.precio), 0).toFixed(2);
 }
 function mostrarTotalEnCarrito() {

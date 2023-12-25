@@ -1,6 +1,7 @@
 let carrito = JSON.parse(localStorage.getItem("miCarrito")) || []
 const cardsContainer = document.querySelector("#cardsContainer")
 const carritoLista = document.querySelector("#carritoLista")
+const divTotalCarrito = document.querySelector("#divTotalCarrito")
 
 fetch('json/productosscala.json')
   .then(response => response.json())
@@ -28,7 +29,6 @@ function crearCardHTML(producto) {
     </div>`;
 }
 function agregarAlCarrito(id) {
-  carritoLista.textContent= ''
   const productoSeleccionado = productos.find(producto => producto.id === id);
   Toastify({
     text: "Producto agregado",
@@ -56,11 +56,11 @@ function agregarAlCarrito(id) {
     const nuevoItemCarrito = document.createElement("div");
     nuevoItemCarrito.classList.add("itemCarrito");
     nuevoItemCarrito.innerHTML = `
-      <div class="textoItemCarrito">
-        ${productoSeleccionado.nombre} $${productoSeleccionado.precio} 
-      </div>
-      <button class="btnDelCarrito removeItem" onclick="eliminarDelCarrito(${productoSeleccionado.id})">Eliminar del carrito</button>
-    `;
+    <div class="textoItemCarrito">
+      ${productoSeleccionado.nombre} $${productoSeleccionado.precio} 
+    </div>
+    <button class="btnDelCarrito removeItem" onclick="eliminarDelCarrito(${productoSeleccionado.id})">Eliminar del carrito</button>
+  `;
     carritoLista.appendChild(nuevoItemCarrito);
   } else {
     Swal.fire({
@@ -70,4 +70,37 @@ function agregarAlCarrito(id) {
       footer: '<a href="index.html">Intente nuevamente</a>'
     });
   }
+}
+function eliminarDelCarrito(id) {
+  const productoIndex = carrito.findIndex(producto => producto.id === id);
+  if (productoIndex !== -1) {
+    carrito.splice(productoIndex, 1);
+    const elementosCarrito = document.querySelectorAll('.itemCarrito');
+    elementosCarrito[productoIndex].remove();
+
+
+    Toastify({
+      text: "Producto eliminado",
+      duration: 3000,
+      close: true,
+      gravity: "top",
+      position: "right",
+      stopOnFocus: true,
+      style: {
+        background: "#f72424",
+        color: "fff",
+        fontFamily: 'Ubuntu',
+        fontWeight: 'Bolder',
+      },
+      offset: {
+        x: "2.5rem",
+        y: "6.5rem"
+      },
+      onClick: function () { }
+    }).showToast();
+  }
+}
+function mostrarTotal() {
+  let total= carrito.reduce((acc, producto) => acc + parseFloat(producto.precio), 0).toFixed(2);
+  
 }
