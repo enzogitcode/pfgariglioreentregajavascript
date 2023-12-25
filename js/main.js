@@ -62,6 +62,7 @@ function agregarAlCarrito(id) {
     <button class="btnDelCarrito removeItem" onclick="eliminarDelCarrito(${productoSeleccionado.id})">Eliminar del carrito</button>
   `;
     carritoLista.appendChild(nuevoItemCarrito);
+    mostrarTotal();
   } else {
     Swal.fire({
       title: "Error",
@@ -77,8 +78,6 @@ function eliminarDelCarrito(id) {
     carrito.splice(productoIndex, 1);
     const elementosCarrito = document.querySelectorAll('.itemCarrito');
     elementosCarrito[productoIndex].remove();
-
-
     Toastify({
       text: "Producto eliminado",
       duration: 3000,
@@ -99,8 +98,13 @@ function eliminarDelCarrito(id) {
       onClick: function () { }
     }).showToast();
   }
+  mostrarTotal();
 }
 function mostrarTotal() {
-  let total= carrito.reduce((acc, producto) => acc + parseFloat(producto.precio), 0).toFixed(2);
-  
+  let total = carrito.reduce((acc, producto) => acc + parseFloat(producto.precio), 0).toFixed(2);
+  divTotalCarrito.innerHTML = `<div>Cantidad de productos agregados al carrito</div>
+  <div>El total de su compra es <span>${total}</span></div>`
+
+if (carrito.lenght = 0) { 
+  divTotalCarrito.innerHTML = `<El carrito esta vacío` }
 }
