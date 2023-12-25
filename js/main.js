@@ -1,24 +1,6 @@
-//contenedorProductos es donde se crean las cards
-//carritoVacio con un p que indica que no hay productos en el carrito
-//carritoLista donde se agregaran la lista de productos
-//divTotalCarrito es donde se pone el nro total de productos y el total de la compra
-//cantidadProductosCarrito
-//totalCarrito 
-
-//Falta corregir div del total
-//la función que crea el div del total
-//limpiar (vaciar) carrito
-//función comprar
-
 let carrito = JSON.parse(localStorage.getItem("miCarrito")) || []
 const cardsContainer = document.querySelector("#cardsContainer")
-const carritoLista = document.querySelector("#carritoLista");
-//const divTotalCarritoID = document.querySelector("#divTotalCarrito")
-const divCarritoVacio = document.querySelectorAll(".carritoVacio")
-//const btnLimpiar = document.querySelector("#btnLimpiarCarrito")
-//btnLimpiar.addEventListener("click", vaciarCarrito);
-const EliminarDelCarrito = document.querySelectorAll(".removeItem")
-//const cantidadProductosCarrito = document.querySelector("#cantidadProductosCarrito")
+const carritoLista = document.querySelector("#carritoLista")
 
 fetch('json/productosscala.json')
   .then(response => response.json())
@@ -37,7 +19,6 @@ function procesarProductos(productos) {
     cardsContainer.innerHTML += cardHTML;
   });
 }
-
 function crearCardHTML(producto) {
   return `<div class="cardBody">
     <div class="cardImg"><img src="${producto.imagen}" alt="${producto.titulo}"></div>
@@ -47,7 +28,7 @@ function crearCardHTML(producto) {
     </div>`;
 }
 function agregarAlCarrito(id) {
-  divTotalCarrito.remove();
+  carritoLista.textContent= ''
   const productoSeleccionado = productos.find(producto => producto.id === id);
   Toastify({
     text: "Producto agregado",
@@ -75,15 +56,12 @@ function agregarAlCarrito(id) {
     const nuevoItemCarrito = document.createElement("div");
     nuevoItemCarrito.classList.add("itemCarrito");
     nuevoItemCarrito.innerHTML = `
-    <div class="textoItemCarrito">
-      ${productoSeleccionado.nombre} $${productoSeleccionado.precio} 
-    </div>
-    <button class="btnDelCarrito removeItem" onclick="eliminarDelCarrito(${productoSeleccionado.id})">Eliminar del carrito</button>
-  `;
+      <div class="textoItemCarrito">
+        ${productoSeleccionado.nombre} $${productoSeleccionado.precio} 
+      </div>
+      <button class="btnDelCarrito removeItem" onclick="eliminarDelCarrito(${productoSeleccionado.id})">Eliminar del carrito</button>
+    `;
     carritoLista.appendChild(nuevoItemCarrito);
-    calcularTotal();
-    mostrarTotalEnCarrito();
-    //obtenerTotal();
   } else {
     Swal.fire({
       title: "Error",
@@ -93,52 +71,3 @@ function agregarAlCarrito(id) {
     });
   }
 }
-function calcularTotal() {
-  return carrito.reduce((acc, producto) => acc + parseFloat(producto.precio), 0).toFixed(2);
-}
-function mostrarTotalEnCarrito() {
-  divCarritoVacio.innerHTML= `El total de su compra es $${(producto)}`
-}
-function eliminarDelCarrito(id) {
-  const productoIndex = carrito.findIndex(producto => producto.id === id);
-  if (productoIndex !== -1) {
-    carrito.splice(productoIndex, 1);
-    const elementosCarrito = document.querySelectorAll('.itemCarrito');
-    elementosCarrito[productoIndex].remove();
-    //obtenerTotal();
-
-    Toastify({
-      text: "Producto eliminado",
-      duration: 3000,
-      close: true,
-      gravity: "top",
-      position: "right",
-      stopOnFocus: true,
-      style: {
-        background: "#f72424",
-        color: "fff",
-        fontFamily: 'Ubuntu',
-        fontWeight: 'Bolder',
-      },
-      offset: {
-        x: "2.5rem",
-        y: "6.5rem"
-      },
-      onClick: function () { }
-    }).showToast();
-  }
-}
-
-/* function crearTotalCarrito() {
-  divCarritoVacioID.innerHTML = ``
-  const spanTotalCarrito = document.createElement("span");
-  spanTotalCarrito.textContent = `$ ${calcularTotal()}`;
-
-  divTotalCarrito.innerHTML = "";
-  const textoTotalCarrito = document.createElement("div");
-  textoTotalCarrito.id = "textoTotalCarrito";
-  textoTotalCarrito.innerHTML = `<p>Productos agregados al carrito: <span id="cantidadProductosCarrito">${carrito.length}</span></p>
-                                    <p>El total de su compra es de </p>`;
-  textoTotalCarrito.appendChild(spanTotalCarrito);
-  divTotalCarrito.appendChild(textoTotalCarrito);
-} */
