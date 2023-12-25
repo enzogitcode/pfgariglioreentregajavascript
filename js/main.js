@@ -5,10 +5,16 @@
 //cantidadProductosCarrito
 //totalCarrito 
 
+//Falta corregir div del total
+//la función que crea el div del total
+//limpiar (vaciar) carrito
+//función comprar
+
 let carrito = JSON.parse(localStorage.getItem("miCarrito")) || []
 const cardsContainer = document.querySelector("#cardsContainer")
 const carritoLista = document.querySelector("#carritoLista");
-const divCarritoVacio = document.querySelector(".carritoVacio")
+//const divTotalCarritoID = document.querySelector("#divTotalCarrito")
+const divCarritoVacio = document.querySelectorAll(".carritoVacio")
 //const btnLimpiar = document.querySelector("#btnLimpiarCarrito")
 //btnLimpiar.addEventListener("click", vaciarCarrito);
 const EliminarDelCarrito = document.querySelectorAll(".removeItem")
@@ -40,9 +46,8 @@ function crearCardHTML(producto) {
     <button class="addCart" onclick="agregarAlCarrito(${producto.id})">Agregar al carrito</button>
     </div>`;
 }
-
 function agregarAlCarrito(id) {
-  divCarritoVacio.remove();
+  divTotalCarrito.remove();
   const productoSeleccionado = productos.find(producto => producto.id === id);
   Toastify({
     text: "Producto agregado",
@@ -77,7 +82,8 @@ function agregarAlCarrito(id) {
   `;
     carritoLista.appendChild(nuevoItemCarrito);
     calcularTotal();
-    //    obtenerTotal();
+    mostrarTotalEnCarrito();
+    //obtenerTotal();
   } else {
     Swal.fire({
       title: "Error",
@@ -90,6 +96,9 @@ function agregarAlCarrito(id) {
 function calcularTotal() {
   return carrito.reduce((acc, producto) => acc + parseFloat(producto.precio), 0).toFixed(2);
 }
+function mostrarTotalEnCarrito() {
+  divCarritoVacio.innerHTML= `El total de su compra es $${(producto)}`
+}
 function eliminarDelCarrito(id) {
   const productoIndex = carrito.findIndex(producto => producto.id === id);
   if (productoIndex !== -1) {
@@ -97,7 +106,7 @@ function eliminarDelCarrito(id) {
     const elementosCarrito = document.querySelectorAll('.itemCarrito');
     elementosCarrito[productoIndex].remove();
     //obtenerTotal();
-    mostrarCarritoVacio();
+
     Toastify({
       text: "Producto eliminado",
       duration: 3000,
@@ -119,13 +128,9 @@ function eliminarDelCarrito(id) {
     }).showToast();
   }
 }
-function mostrarCarritoVacio() {
-  if (carrito.lenght = 0) {
-    noHayProductos.innerHTML = `<p>No hay productos en el carrito</p>`
-  }
-}
 
-function crearTotalCarrito() {
+/* function crearTotalCarrito() {
+  divCarritoVacioID.innerHTML = ``
   const spanTotalCarrito = document.createElement("span");
   spanTotalCarrito.textContent = `$ ${calcularTotal()}`;
 
@@ -136,4 +141,4 @@ function crearTotalCarrito() {
                                     <p>El total de su compra es de </p>`;
   textoTotalCarrito.appendChild(spanTotalCarrito);
   divTotalCarrito.appendChild(textoTotalCarrito);
-}
+} */
