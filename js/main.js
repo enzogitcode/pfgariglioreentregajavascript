@@ -30,7 +30,6 @@ function crearCardHTML(producto) {
     </div>`;
 }
 function agregarAlCarrito(id) {
-  
   const productoSeleccionado = productos.find(producto => producto.id === id);
   Toastify({
     text: "Producto agregado",
@@ -111,17 +110,49 @@ function mostrarTotal() {
   }
 }
 let total = carrito.reduce((acc, producto) => acc + parseFloat(producto.precio), 0).toFixed(2);
-if (total =0) {
-  noHayProductosCarrito.innerText= 'nada'
+if (total = 0) {
+  noHayProductosCarrito.innerText = 'nada'
 }
-const btnVaciarCarrito= document.querySelector("#btnVaciarCarrito")
-btnVaciarCarrito.addEventListener ("click", vaciarCarrito)
+const btnVaciarCarrito = document.querySelector("#btnVaciarCarrito")
+btnVaciarCarrito.addEventListener("click", vaciarCarrito)
 
-function vaciarCarrito () {
-  carrito =[];
+function vaciarCarrito() {
+  carrito = [];
   const elementosCarrito = document.querySelectorAll('.itemCarrito');
   elementosCarrito.forEach(elemento => elemento.remove());
-mostrarTotal();
+  mostrarTotal();
 }
 
-const btnComprar= document.querySelector("#btnComprar")
+const btnComprar = document.querySelector("#btnComprar")
+btnComprar.addEventListener("click", confirmarCompra)
+
+const btnHola= document.querySelector("#btnHola")
+
+btnHola.addEventListener("click", decirHola)
+function decirHola() {
+  if (carrito !==[]) {alert("hola")}
+  else {alert("chau")}
+}
+
+function confirmarCompra() {
+    Swal.fire({
+      title: "¿Quiere confirmar su compra?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#141951",
+      cancelButtonColor: "#8b171a",
+      confirmButtonText: "Confirmar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.setItem("miCarrito", JSON.stringify(productosEnCarrito));
+        vaciarCarrito(),
+          Swal.fire({
+            title: "Compra confirmada",
+            text: "Muchas gracias por su compra",
+            imageUrl: "../imgs/scalonetaCarritoSinFondo.png",
+            imageWidth: 500,
+            imageHeight: 300,
+          })
+      }
+    })
+  }
