@@ -144,7 +144,7 @@ function confirmarCompra() {
       confirmButtonText: "Confirmar",
     }).then((result) => {
       if (result.isConfirmed) {
-        localStorage.setItem("miCarrito", JSON.stringify(productosEnCarrito));
+        localStorage.setItem("miCompra", JSON.stringify(carrito));
         vaciarCarrito(),
           Swal.fire({
             title: "Compra confirmada",
