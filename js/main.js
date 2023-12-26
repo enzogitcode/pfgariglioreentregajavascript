@@ -114,14 +114,14 @@ let total = carrito.reduce((acc, producto) => acc + parseFloat(producto.precio),
 if (total =0) {
   noHayProductosCarrito.innerText= 'nada'
 }
-btnVaciarCarrito.addEventListener ("click", vaciarCarrito)
 const btnVaciarCarrito= document.querySelector("#btnVaciarCarrito")
+btnVaciarCarrito.addEventListener ("click", vaciarCarrito)
 
 function vaciarCarrito () {
   carrito =[];
   const elementosCarrito = document.querySelectorAll('.itemCarrito');
   elementosCarrito.forEach(elemento => elemento.remove());
-  
+mostrarTotal();
 }
 
 const btnComprar= document.querySelector("#btnComprar")
