@@ -103,16 +103,11 @@ function eliminarDelCarrito(id) {
 }
 
 function mostrarTotal() {
-  if (carrito !== []) {
-    let total = carrito.reduce((acc, producto) => acc + parseFloat(producto.precio), 0).toFixed(2);
     divTotalCarrito.innerHTML = `<div>Cantidad de productos agregados al carrito <span>${carrito.lenght}</span></div>
   <div>El total de su compra es de $<span>${total}</span></div>`
   }
-}
-let total = carrito.reduce((acc, producto) => acc + parseFloat(producto.precio), 0).toFixed(2);
-if (total = 0) {
-  noHayProductosCarrito.innerText = 'nada'
-}
+
+
 const btnVaciarCarrito = document.querySelector("#btnVaciarCarrito")
 btnVaciarCarrito.addEventListener("click", vaciarCarrito)
 
