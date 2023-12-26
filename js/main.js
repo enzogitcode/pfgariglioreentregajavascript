@@ -128,12 +128,6 @@ btnComprar.addEventListener("click", confirmarCompra)
 
 const btnHola = document.querySelector("#btnHola")
 
-btnHola.addEventListener("click", decirHola)
-function decirHola() {
-  if (carrito !== []) { alert("hola") }
-  else { alert("chau") }
-}
-
 function confirmarCompra() {
   Swal.fire({
     title: "¿Quiere confirmar su compra?",
