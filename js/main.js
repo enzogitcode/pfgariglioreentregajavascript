@@ -3,7 +3,7 @@ const cardsContainer = document.querySelector("#cardsContainer")
 const carritoLista = document.querySelector("#carritoLista")
 const divTotalCarrito = document.querySelector("#divTotalCarrito")
 
-fetch('json/productosscala.json')
+fetch('./json/productosscala.json')
   .then(response => response.json())
   .then(data => {
     productos = data;
@@ -19,7 +19,6 @@ function procesarProductos(productos) {
     const cardHTML = crearCardHTML(producto);
     cardsContainer.innerHTML += cardHTML;
   });
-  mostrarTotal();
 }
 function crearCardHTML(producto) {
   return `<div class="cardBody">
@@ -101,10 +100,12 @@ function eliminarDelCarrito(id) {
     }).showToast();
   }
 }
-
+function calcularTotal () {
+  return carrito.reduce ((acc , producto)=> acc + parseFloat(producto.precio).toFixed(2));
+}
 function mostrarTotal() {
-    divTotalCarrito.innerHTML = `<div>Cantidad de productos agregados al carrito <span>${carrito.lenght}</span></div>
-  <div>El total de su compra es de $<span>${total}</span></div>`
+    return divTotalCarrito.innerHTML = `<div>Cantidad de productos agregados al carrito <span>${carrito.length}</span></div>
+  <div>El total de su compra es de $<span>${calcularTotal()}</span></div>`
   }
 
 
@@ -115,13 +116,16 @@ function vaciarCarrito() {
   carrito = [];
   const elementosCarrito = document.querySelectorAll('.itemCarrito');
   elementosCarrito.forEach(elemento => elemento.remove());
+  calcularTotal();
   mostrarTotal();
 }
 
 const btnComprar = document.querySelector("#btnComprar")
 btnComprar.addEventListener("click", confirmarCompra)
 
-const btnHola = document.querySelector("#btnHola")
+/* const btnHola = document.querySelector("#btnHola")
+if (carrito.length>0) {alert("hola")}
+else {alert ("chau")} */
 
 function confirmarCompra() {
   Swal.fire({
