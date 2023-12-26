@@ -3,7 +3,7 @@ const cardsContainer = document.querySelector("#cardsContainer")
 const carritoLista = document.querySelector("#carritoLista")
 const divTotalCarrito = document.querySelector("#divTotalCarrito")
 
-fetch('json2/productosscala2.json')
+fetch('json/productosscala.json')
   .then(response => response.json())
   .then(data => {
     productos = data;
@@ -126,33 +126,33 @@ function vaciarCarrito() {
 const btnComprar = document.querySelector("#btnComprar")
 btnComprar.addEventListener("click", confirmarCompra)
 
-const btnHola= document.querySelector("#btnHola")
+const btnHola = document.querySelector("#btnHola")
 
 btnHola.addEventListener("click", decirHola)
 function decirHola() {
-  if (carrito !==[]) {alert("hola")}
-  else {alert("chau")}
+  if (carrito !== []) { alert("hola") }
+  else { alert("chau") }
 }
 
 function confirmarCompra() {
-    Swal.fire({
-      title: "¿Quiere confirmar su compra?",
-      icon: "question",
-      showCancelButton: true,
-      confirmButtonColor: "#141951",
-      cancelButtonColor: "#8b171a",
-      confirmButtonText: "Confirmar",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        localStorage.setItem("miCompra", JSON.stringify(carrito));
-        vaciarCarrito(),
-          Swal.fire({
-            title: "Compra confirmada",
-            text: "Muchas gracias por su compra",
-            imageUrl: "../imgs/scalonetaCarritoSinFondo.png",
-            imageWidth: 500,
-            imageHeight: 300,
-          })
-      }
-    })
-  }
+  Swal.fire({
+    title: "¿Quiere confirmar su compra?",
+    icon: "question",
+    showCancelButton: true,
+    confirmButtonColor: "#141951",
+    cancelButtonColor: "#8b171a",
+    confirmButtonText: "Confirmar",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      localStorage.setItem("miCompra", JSON.stringify(carrito));
+      vaciarCarrito(),
+        Swal.fire({
+          title: "Compra confirmada",
+          text: "Muchas gracias por su compra",
+          imageUrl: "../imgs/scalonetaCarritoSinFondo.png",
+          imageWidth: 500,
+          imageHeight: 300,
+        })
+    }
+  })
+}
