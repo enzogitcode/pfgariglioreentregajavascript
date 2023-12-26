@@ -130,24 +130,26 @@ function decirHola() {
 }
 
 function confirmarCompra() {
-  Swal.fire({
-    title: "¿Quiere confirmar su compra?",
-    icon: "question",
-    showCancelButton: true,
-    confirmButtonColor: "#141951",
-    cancelButtonColor: "#8b171a",
-    confirmButtonText: "Confirmar",
-  }).then((result) => {
-    if (result.isConfirmed) {
-      localStorage.setItem("miCompra", JSON.stringify(carrito));
-      vaciarCarrito(),
-        Swal.fire({
-          title: "Compra confirmada",
-          text: "Muchas gracias por su compra",
-          imageUrl: "../imgs/scalonetaCarritoSinFondo.png",
-          imageWidth: 500,
-          imageHeight: 300,
-        })
-    }
-  })
+  if (carrito.length > 0) {
+    Swal.fire({
+      title: "¿Quiere confirmar su compra?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#141951",
+      cancelButtonColor: "#8b171a",
+      confirmButtonText: "Confirmar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.setItem("miCompra", JSON.stringify(carrito));
+        vaciarCarrito(),
+          Swal.fire({
+            title: "Compra confirmada",
+            text: "Muchas gracias por su compra",
+            imageUrl: "../imgs/scalonetaCarritoSinFondo.png",
+            imageWidth: 500,
+            imageHeight: 300,
+          })
+      }
+    })
+  }
 }
