@@ -19,6 +19,7 @@ function procesarProductos(productos) {
     const cardHTML = crearCardHTML(producto);
     cardsContainer.innerHTML += cardHTML;
   });
+  mostrarCarritoVacio();
   mostrarTotal();
 }
 function crearCardHTML(producto) {
@@ -103,31 +104,24 @@ function eliminarDelCarrito(id) {
 }
 function mostrarTotal() {
   let total = carrito.reduce((acc, producto) => acc + parseFloat(producto.precio), 0).toFixed(2);
-  divTotalCarrito.innerHTML = `<div>Cantidad de productos agregados al carrito <span>${carrito.length}</span></div>
-  <div>El total de su compra es de $<span>${total}</span></div>`
+  divTotalCarrito.innerHTML = `<div>Cantidad de productos agregados al carrito: <span>${carrito.length}</span></div>
+  <div>El total de su compra es de: $<span>${total}</span></div>`
 }
-
+function mostrarCarritoVacio (){
+if (carrito.length= 0) {
+  carritoLista.textContent= 'No hay productos en el carrito'
+}}
 const btnVaciarCarrito = document.querySelector("#btnVaciarCarrito")
 btnVaciarCarrito.addEventListener("click", vaciarCarrito)
-
 function vaciarCarrito() {
-
   carrito = [];
   const elementosCarrito = document.querySelectorAll('.itemCarrito');
   elementosCarrito.forEach(elemento => elemento.remove());
   mostrarTotal();
 }
 
-
 const btnComprar = document.querySelector("#btnComprar")
 btnComprar.addEventListener("click", confirmarCompra)
-
-const btnHola = document.querySelector("#btnHola")
-btnHola.addEventListener("click", decirHola)
-function decirHola() {
-  if (carrito.length > 0) { alert("hola") }
-  else { alert("chau") }
-}
 
 function confirmarCompra() {
   if (carrito.length > 0) {
