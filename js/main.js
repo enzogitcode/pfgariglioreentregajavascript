@@ -30,6 +30,7 @@ function crearCardHTML(producto) {
     </div>`;
 }
 function agregarAlCarrito(id) {
+  
   const productoSeleccionado = productos.find(producto => producto.id === id);
   Toastify({
     text: "Producto agregado",
@@ -54,7 +55,6 @@ function agregarAlCarrito(id) {
 
   if (productoSeleccionado) {
     carrito.push(productoSeleccionado);
-    divTotalCarrito.textContent= ''
     const nuevoItemCarrito = document.createElement("div");
     nuevoItemCarrito.classList.add("itemCarrito");
     nuevoItemCarrito.innerHTML = `
@@ -81,7 +81,6 @@ function eliminarDelCarrito(id) {
     const elementosCarrito = document.querySelectorAll('.itemCarrito');
     elementosCarrito[productoIndex].remove();
     mostrarTotal();
-
     Toastify({
       text: "Producto eliminado",
       duration: 3000,
@@ -103,10 +102,26 @@ function eliminarDelCarrito(id) {
     }).showToast();
   }
 }
+
 function mostrarTotal() {
+  if (carrito !== []) {
     let total = carrito.reduce((acc, producto) => acc + parseFloat(producto.precio), 0).toFixed(2);
     divTotalCarrito.innerHTML = `<div>Cantidad de productos agregados al carrito <span>${carrito.lenght}</span></div>
   <div>El total de su compra es de $<span>${total}</span></div>`
   }
+}
+let total = carrito.reduce((acc, producto) => acc + parseFloat(producto.precio), 0).toFixed(2);
+if (total =0) {
+  noHayProductosCarrito.innerText= 'nada'
+}
+btnVaciarCarrito.addEventListener ("click", vaciarCarrito)
+const btnVaciarCarrito= document.querySelector("#btnVaciarCarrito")
 
+function vaciarCarrito () {
+  carrito =[];
+  const elementosCarrito = document.querySelectorAll('.itemCarrito');
+  elementosCarrito.forEach(elemento => elemento.remove());
+  
+}
 
+const btnComprar= document.querySelector("#btnComprar")
