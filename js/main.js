@@ -3,7 +3,7 @@ const cardsContainer = document.querySelector("#cardsContainer")
 const carritoLista = document.querySelector("#carritoLista")
 const divTotalCarrito = document.querySelector("#divTotalCarrito")
 
-fetch('json/productosscala.json')
+fetch('json2/productosscala2.json')
   .then(response => response.json())
   .then(data => {
     productos = data;
